@@ -3,7 +3,6 @@ from sklearn import svm
 from sklearn import metrics
 from sklearn.metrics import matthews_corrcoef
 from sklearn.model_selection import StratifiedKFold
-from sklearn.metrics import roc_auc_score
 
 def getDNA(filename):
     fr = open(filename, 'r')
@@ -227,8 +226,8 @@ def Independence_test(Data12, Label12, Data34, Label34):
     estimator = svm.SVC(kernel='linear')
     clf = estimator.fit(Data12, Label12)
     predictArr = clf.predict(Data34)
-    acc, sens, spec, mcc, auc = performance(Label34, predictArr)
-    print("independent dataset test",acc, sens, spec, mcc, auc)
+    acc, sens, spec, mcc= performance(Label34, predictArr)
+    print("independent dataset test",acc, sens, spec, mcc)
 
 def parameters_select(filename1,filename2,valuesfile_D,valuesfile_T):
     best_ACC = 0.0
@@ -247,7 +246,7 @@ def parameters_select(filename1,filename2,valuesfile_D,valuesfile_T):
             estimator = svm.SVC(kernel='linear')
             clf = estimator.fit(X_train, y_train)
             predictArr = clf.predict(X_val)
-            acc, sens, spec, mcc, auc = performance(y_val, predictArr)
+            acc, sens, spec, mcc= performance(y_val, predictArr)
             ACC.append(acc)
         ACC = np.array(ACC).mean()
         print("number of times{}".format(i))
