@@ -2,7 +2,6 @@ import numpy as np
 from sklearn import svm
 from sklearn import metrics
 from sklearn.metrics import matthews_corrcoef
-from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import StratifiedKFold
 
 def getDNA(filename):
@@ -192,14 +191,13 @@ def performance(labelArr, predictArr):
     SN = metrics.recall_score(labelArr, predictArr)
     SP = TN/(FP + TN) #Specificity = TN/N  and N = TN + FP
     MCC= matthews_corrcoef(labelArr, predictArr)
-    AUC = roc_auc_score(labelArr, predictArr)
-    return ACC,SN,SP,MCC,AUC
+    return ACC,SN,SP,MCC
 
 def Independence_test(Data12, Label12, Data34, Label34):
     estimator = svm.SVC(kernel='linear')
     clf = estimator.fit(Data12, Label12)
     predictArr = clf.predict(Data34)
-    acc, sens, spec, mcc, auc= performance(Label34, predictArr)
+    acc, sens, spec, mcc= performance(Label34, predictArr)
     print("independent dataset test",acc, sens, spec, mcc, auc)
 
 def parameters_select(filename1,filename2):
