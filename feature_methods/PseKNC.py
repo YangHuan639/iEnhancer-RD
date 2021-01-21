@@ -217,8 +217,7 @@ def performance(labelArr, predictArr):
     SN = metrics.recall_score(labelArr, predictArr)
     SP = TN/(FP + TN) #Specificity = TN/N  and N = TN + FP
     MCC= matthews_corrcoef(labelArr, predictArr)
-    AUC = roc_auc_score(labelArr, predictArr)
-    return ACC,SN,SP,MCC,AUC
+    return ACC,SN,SP,MCC
 
 def Independence_test(Data12, Label12, Data34, Label34):
     estimator = svm.SVC(kernel='linear')
